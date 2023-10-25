@@ -3,6 +3,8 @@ const accountId = localStorage.getItem('app-accountId')
 const authToken = localStorage.getItem('app-authToken')
 const ownerId = localStorage.getItem('app-ownerId')
 
+const audioFail = new Audio('./fail.mp3')
+
 const crossbar = {
     baseOptions: {
         headers: { 'Content-Type': 'application/json' },
@@ -266,6 +268,10 @@ const whiteboardStateMachine = {
                           const color = isValid ? 'green' : 'red';
 
                           whiteboard.draw(color, points, point_size);
+
+                          if (!isValid) {
+                            audioFail.play()
+                          }
 
                           if (isValid) {
                             placeCall();
